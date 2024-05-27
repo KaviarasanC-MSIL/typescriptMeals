@@ -9,14 +9,23 @@ import CustomPopup from './CustomPopup';
 import { useSelector, useDispatch } from 'react-redux';
 import { setActionType, setShowPopup } from '../app/popupSlice';
 import { RootState } from '../app/store';
-import {ProductData} from'../type'
+import { ProductData } from '../type';
+
 export const Home: React.FC = () => {
     const [product, setProduct] = useState<ProductData[]>([]);
     const [filterData, setFilterData] = useState<ProductData[]>([]);
     const dispatch = useDispatch();
     const { showPopup } = useSelector((state: RootState) => state.popup);
     const [email, setEmail] = useState<string>('');
-
+    const usersString = localStorage.getItem('user');
+    if (usersString) {
+        const users: any[] = JSON.parse(usersString);
+        const activeUserIndex = users.findIndex(user => user.status === 'active');
+        if (activeUserIndex !== -1) {
+            console.log("product Home Cart"+JSON.stringify(users[activeUserIndex].cart))
+            localStorage.setItem('user', JSON.stringify(users));
+        }
+    }
     useEffect(() => {
         const fetchData = async () => {
             try {

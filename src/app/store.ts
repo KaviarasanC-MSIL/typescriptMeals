@@ -1,7 +1,7 @@
 import { configureStore } from "@reduxjs/toolkit";
 import cartReducer, { CartState } from './cartSlice';
 import popupReducer, { PopupState } from './popupSlice';
-
+import userReducer from './userSlice';
 export interface RootState {
     cart: CartState;
     popup: PopupState;
@@ -9,6 +9,7 @@ export interface RootState {
 
 const store = configureStore({
     reducer:{
+        user: userReducer,
         cart: cartReducer,
         popup: popupReducer,
     }

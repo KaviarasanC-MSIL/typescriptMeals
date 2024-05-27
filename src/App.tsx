@@ -13,7 +13,15 @@ import store from './app/store'
 
 
 function App() {
-
+  const usersString = localStorage.getItem('user');
+    if (usersString) {
+        const users: any[] = JSON.parse(usersString);
+        const activeUserIndex = users.findIndex(user => user.status === 'active');
+        if (activeUserIndex !== -1) {
+            console.log("product added in  App cart"+JSON.stringify(users[activeUserIndex].cart))
+            localStorage.setItem('user', JSON.stringify(users));
+        }
+    }
   return (
     <Provider store={store}>
       <Router>
